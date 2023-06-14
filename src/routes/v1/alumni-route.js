@@ -9,5 +9,20 @@ router.post('/signup',
         AlumniMiddleware.validateCreateRequest,
         AlumniController.createAlumni);
 
-router.get('/signin',AlumniController.signin);
+router.post('/signin',AlumniController.signin);
+
+router.get('/getall',AlumniController.getAll);
+
+router.get('/profile',AlumniMiddleware.checkAuth,AlumniController.profile)
+
+router.get('/name',
+        AlumniMiddleware.validateGetByName,
+        AlumniController.getUserByName);
+
+router.get('/branch',
+        AlumniMiddleware.validateGetByBranch,
+        AlumniController.getUserByBranch);
+
+
+
 module.exports=router;

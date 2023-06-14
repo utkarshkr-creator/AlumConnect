@@ -2,8 +2,12 @@ const express = require('express');
 
 const { ServerConfig } = require('./config');
 const apiRoutes = require('./routes');
-
+const cors=require('cors');
 const app = express();
+
+app.use(cors({
+    origin:'*',
+}))
 
 
 app.use(express.json());

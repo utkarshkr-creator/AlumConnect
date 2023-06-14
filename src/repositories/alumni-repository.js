@@ -21,6 +21,34 @@ class AlumniRepository extends CrudRepository{
         }
         return response;
     }
+    async getUserByName(name){
+        const response=await Alumni.findAll({
+            where:{
+                name: {
+                    [Op.eq]: name // Assuming 'data' contains the email value to match
+                },
+                
+            }
+        })
+        if(!response){
+            throw StatusCodes.NOT_FOUND;
+        }
+        return response;
+    }
+    async getUserByBranch(branch){
+        const response=await Alumni.findAll({
+            where:{
+                branch: {
+                    [Op.eq]: branch // Assuming 'data' contains the email value to match
+                },
+                
+            }
+        })
+        if(!response){
+            throw StatusCodes.NOT_FOUND;
+        }
+        return response;
+    }
 
 }
 module.exports=AlumniRepository;

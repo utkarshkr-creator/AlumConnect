@@ -2,6 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 
 const { ErrorResponse } = require('../utils/common');
 const AppError = require('../utils/errors/app-error');
+const {AlumniService}=require('../services')
 
 function validateCreateRequest(req, res, next) {
     
@@ -50,6 +51,47 @@ function validateCreateRequest(req, res, next) {
     next();
 }
 
+
+function validateGetByName(req,res,next){
+    if(!req.query.name) {
+        ErrorResponse.message = 'Something went wrong while getting result by Name';
+        ErrorResponse.error = new AppError(['name not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
+        return res
+                .status(StatusCodes.BAD_REQUEST)
+                .json(ErrorResponse);
+    }
+    next();
+}
+function validateGetByBranch(req,res,next){
+    if(!req.query.branch) {
+        ErrorResponse.message = 'Something went wrong while getting result by Branch';
+        ErrorResponse.error = new AppError(['branch not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
+        return res
+                .status(StatusCodes.BAD_REQUEST)
+                .json(ErrorResponse);
+    }
+    next();
+}
+async function checkAuth(req, res, next) {
+    try {
+        console.log(req.headers);
+        const response = await AlumniService.isAuthenticated(req.headers['xaccesstoken']);
+        if(response) {
+            req.user = response; // setting the user id in the req object
+            next();
+        }
+    } catch(error) {
+        return res
+                .status(error.statusCode)
+                .json(error);
+    }
+    
+}
+
+
 module.exports = {
-    validateCreateRequest
+    validateCreateRequest,
+    validateGetByName,
+    validateGetByBranch,
+    checkAuth
 }
