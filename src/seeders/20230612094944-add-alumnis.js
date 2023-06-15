@@ -17,21 +17,23 @@ module.exports = {
     await queryInterface.bulkInsert('Alumnis', [
       {
         name: 'Vaibhavi',
-        email: 'vai',
+        email: 'Vaibhavi@gmail.com',
         password:'1234',
         phoneNumber:434343,
         graduationYear:348373,
         branch:IT,
+        gender:'FEMALE',
         degreeCertificate:'fdgd',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         name: 'Ramesh',
-        email: 'Ram',
+        email: 'Ramesh@hotmail.com',
         phoneNumber:64443,
         graduationYear:34373,
         password:'1234',
+        gender:'MALE',
         branch:IT,
         degreeCertificate:'f787dgd',
         createdAt: new Date(),
@@ -48,12 +50,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete(
-      'Alumnis', 
-      {
-        [Op.or]: [
-          {email: 'vai'}, 
-          {email: 'Ram',}
-        ]
-      });
+      'Alumnis', null,{});
   }
 };

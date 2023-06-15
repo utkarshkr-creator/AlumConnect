@@ -26,6 +26,7 @@ async function signin(data) {
     try {
         // console.log(data);
         const user = await alumniRepository.getUserByEmail(data.email);
+        console.log(user);
         if(!user) {
             throw new AppError('No user found for the given email', StatusCodes.NOT_FOUND);
         }
@@ -35,10 +36,11 @@ async function signin(data) {
             throw new AppError('Invalid password', StatusCodes.BAD_REQUEST);
         }
         const jwt = Auth.createToken({id: user.id, email: user.email});
+        console.log("jwt Clear");
         return jwt;
     } catch(error) {
-        // console.log(error);
-        if(error instanceof AppError) throw error;
+        console.log(error);
+        // if(error instanceof AppError) throw error;
         
         throw new AppError('Something went wrong while login', StatusCodes.INTERNAL_SERVER_ERROR);
     }
