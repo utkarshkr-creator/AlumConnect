@@ -1,6 +1,6 @@
 'use strict';
 const {Enums}=require('../utils/common')
-const {IT, ME, CE, EE,LT,PHARMA,BMR}=Enums.BRANCH_TYPE
+const {IT, ME, CE, EE,LT,PHARMA,BMR, ECE}=Enums.BRANCH_TYPE
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -46,7 +46,7 @@ module.exports = {
       },
       branch: {
         type: Sequelize.ENUM,
-        values:[IT, ME, CE, EE,LT,PHARMA,BMR],
+        values:[IT, ME, CE, EE,LT,PHARMA,BMR, ECE],
         allowNull:false,
       },
       degreeCertificate: {

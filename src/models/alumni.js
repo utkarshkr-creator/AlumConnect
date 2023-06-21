@@ -5,7 +5,7 @@ const {
 const bcrypt = require('bcrypt');
 const { ServerConfig } = require('../config');
 const {Enums}=require('../utils/common')
-const {IT, ME, CE, EE,LT,PHARMA,BMR}=Enums.BRANCH_TYPE
+const {IT, ME, CE, EE,LT,PHARMA,BMR, ECE}=Enums.BRANCH_TYPE
 module.exports = (sequelize, DataTypes) => {
   class Alumni extends Model {
     /**
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     branch: {
       type: DataTypes.ENUM,
-      values:[IT, ME, CE, EE,LT,PHARMA,BMR],
+      values:[IT, ME, CE, EE,LT,PHARMA,BMR, ECE],
       allowNull:false, 
       
     },
