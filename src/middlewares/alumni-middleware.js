@@ -5,7 +5,7 @@ const AppError = require('../utils/errors/app-error');
 const {AlumniService}=require('../services')
 
 function validateCreateRequest(req, res, next) {
-    
+    console.log(req);
     if(!req.body.name) {
         ErrorResponse.message = 'Something went wrong while creating Account';
         ErrorResponse.error = new AppError(['name not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
@@ -72,6 +72,16 @@ function validateGetByBranch(req,res,next){
     }
     next();
 }
+function validateGetByBatch(req,res,next){
+    if(!req.query.batch) {
+        ErrorResponse.message = 'Something went wrong while getting result by Batch';
+        ErrorResponse.error = new AppError(['batch not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
+        return res
+                .status(StatusCodes.BAD_REQUEST)
+                .json(ErrorResponse);
+    }
+    next();
+}
 async function checkAuth(req, res, next) {
     try {
         console.log(req.headers);
@@ -93,5 +103,6 @@ module.exports = {
     validateCreateRequest,
     validateGetByName,
     validateGetByBranch,
+    validateGetByBatch,
     checkAuth
 }

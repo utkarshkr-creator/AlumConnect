@@ -4,7 +4,6 @@ class CrudRepository{
         this.model=model;
     }
     async create(data){
-        console.log("inside crud");
         const response=await this.model.create(data);
         return response;
     }

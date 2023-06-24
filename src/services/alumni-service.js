@@ -86,6 +86,17 @@ async function getUserByBranch(branch){
     
     }
 }
+async function getUserByBatch(batch){
+    try {
+        // console.log(branch)
+        const alumni=await alumniRepository.getUserByBatch(batch);
+        return alumni;
+    } catch (error) {
+         
+        throw new AppError("Somthing Went wrong ", StatusCodes.INTERNAL_SERVER_ERROR);
+    
+    }
+}
 
 async function isAuthenticated(token) {
     try {
@@ -121,6 +132,7 @@ module.exports={
     getUserByName,
     getUserByBranch,
     isAuthenticated,
+    getUserByBatch,
     get
 
 }

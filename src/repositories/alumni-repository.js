@@ -50,6 +50,20 @@ class AlumniRepository extends CrudRepository{
         }
         return response;
     }
+    async getUserByBatch(batch){
+        const response=await Alumni.findAll({
+            where:{
+                graduationYear: {
+                    [Op.eq]: batch // Assuming 'data' contains the email value to match
+                },
+                
+            }
+        })
+        if(!response){
+            throw StatusCodes.NOT_FOUND;
+        }
+        return response;
+    }
 
 }
 module.exports=AlumniRepository;

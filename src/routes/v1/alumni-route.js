@@ -6,7 +6,7 @@ const {AlumniMiddleware}=require('../../middlewares');
 
 // /api/v1/alumni post
 router.post('/signup', 
-        AlumniMiddleware.validateCreateRequest,
+        
         AlumniController.createAlumni);
 
 router.post('/signin',AlumniController.signin);
@@ -22,6 +22,9 @@ router.get('/name',
 router.get('/branch',
         AlumniMiddleware.validateGetByBranch,
         AlumniController.getUserByBranch);
+router.get('/batch',
+        AlumniMiddleware.validateGetByBatch,
+        AlumniController.getUserByBatch);
 
 
 
