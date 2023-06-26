@@ -8,7 +8,7 @@ class AlumniRepository extends CrudRepository{
         super(Alumni);  
     }
     async getUserByEmail(email){
-        console.log(email);
+       
         const response=await Alumni.findOne({
             where:{
                 email: {

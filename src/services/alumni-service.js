@@ -2,15 +2,19 @@ const {StatusCodes} = require('http-status-codes');
 const {AlumniRepository}=require('../repositories');
 const AppError = require('../utils/errors/app-error');
 const alumniRepository=new AlumniRepository();
-const {Auth}=require('../utils/common');  
-
+const {Auth}=require('../utils/common');
+const {createProfilePicture}=require('./picture-service')
 
 async function createAlumni(data){
         try {
             const alumni=await alumniRepository.create(data);
-            return alumni;
+            const popa=await createProfilePicture({
+                alumni_id:alumni.id,   
+                picture_data:"pictures\\chris.jpg",  
+            });
+            return alumni;  
         } catch (error) {
-            
+            console.log(error);
             if(error.name == 'SequelizeValidationError' || error.name=='SequelizeUniqueConstraintError') {
                 let explanation = [];
                 error.errors.forEach((err) => {
@@ -18,7 +22,8 @@ async function createAlumni(data){
                 });
                 throw new AppError(explanation, StatusCodes.BAD_REQUEST);
             }
-            throw new AppError(error.original.sqlMessage, StatusCodes.INTERNAL_SERVER_ERROR);
+            throw error;
+            // throw new AppError(error.original.sqlMessage, StatusCodes.INTERNAL_SERVER_ERROR);
         
         }
 }

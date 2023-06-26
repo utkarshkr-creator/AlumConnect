@@ -1,13 +1,14 @@
 const { StatusCodes } = require('http-status-codes');
-const upload = require('./fileUpload');
+const {FileUpload} = require('../utils/common')
 const fs = require('fs');
 const { SuccessResponse, ErrorResponse } = require('../utils/common');
 const {AlumniService}=require('../services')
 
+
 async function createAlumni(req, res) {
-     console.log(req.body);
+    
     try {
-      upload.single('degreeCertificate')(req, res, async function (err) {
+      FileUpload.single('degreeCertificate')(req, res, async function (err) {
         if (err) {
           // Handle the file upload error
           console.error(err);
@@ -36,6 +37,7 @@ async function createAlumni(req, res) {
               name: alumni.name,
               email: alumni.email,
             };
+            // SuccessResponse.data=alumni;
     
             return res.status(StatusCodes.CREATED).json(SuccessResponse);
           } catch (error) {
@@ -43,12 +45,12 @@ async function createAlumni(req, res) {
             fs.unlinkSync(req.file.path);
     
             ErrorResponse.error = error;
-            return res.status(error.statusCode).json(ErrorResponse);
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
           }
       });
     } catch (error) {
       ErrorResponse.error = error;
-      return res.status(error.statusCode).json(ErrorResponse);
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
   }
 
