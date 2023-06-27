@@ -11,7 +11,7 @@ async function createAlumni(req, res) {
       FileUpload.single('degreeCertificate')(req, res, async function (err) {
         if (err) {
           // Handle the file upload error
-          console.error(err);
+          // console.error(err);
           ErrorResponse.error = err;
           return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
         }

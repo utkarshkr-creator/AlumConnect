@@ -15,8 +15,9 @@ async  function createProfile(data){
 }
 
 async function updateProfile(data){
+    // console.log(data);
     try {
-        const res=await profileRepo.update(data);
+        const res=await profileRepo.update(data.id,data);
         return res;
     } catch (error) {
          
@@ -25,6 +26,7 @@ async function updateProfile(data){
 }
 
 async function getProfile(id) {
+    
     try {
         const profile = await profileRepo.getByAlumniId(id);
         return profile;

@@ -13,7 +13,7 @@ async function createAlumni(data){
             });
             return alumni;  
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             if(error.name == 'SequelizeValidationError' || error.name=='SequelizeUniqueConstraintError') {
                 let explanation = [];
                 error.errors.forEach((err) => {
@@ -41,7 +41,7 @@ async function signin(data) {
            
         }
         const jwt = Auth.createToken({id: user.id, email: user.email});
-        console.log("jwt Clear");
+        // console.log("jwt Clear");
         return jwt;
     } catch(error) {
         // console.log(error);

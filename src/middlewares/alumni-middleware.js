@@ -83,7 +83,6 @@ function validateGetByBatch(req,res,next){
 }
 async function checkAuth(req, res, next) {
     try {
-        console.log(req.headers);
         const response = await AlumniService.isAuthenticated(req.headers['xaccesstoken']);
         if(response) {
             req.user = response; // setting the user id in the req object
