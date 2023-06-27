@@ -1,12 +1,12 @@
 const CrudRepository = require("./crud-repository");
-const {picture}=require('../models')
+const {profile}=require('../models')
 
-class PictureRepository extends CrudRepository{
+class ProfileRepository extends CrudRepository{
     constructor(){
-        super(picture);
+        super(profile);
     }
     async getByAlumniId(id){
-        const response=await picture.findOne({
+        const response=await profile.findOne({
             where:{
                 alumni_id:id  
             }
@@ -19,4 +19,4 @@ class PictureRepository extends CrudRepository{
 }
 
 
-module.exports=PictureRepository;
+module.exports=ProfileRepository;

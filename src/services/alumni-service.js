@@ -3,14 +3,13 @@ const {AlumniRepository}=require('../repositories');
 const AppError = require('../utils/errors/app-error');
 const alumniRepository=new AlumniRepository();
 const {Auth}=require('../utils/common');
-const {createProfilePicture}=require('./picture-service')
+const {createProfile}=require('./profile-service')
 
 async function createAlumni(data){
         try {
             const alumni=await alumniRepository.create(data);
-            const popa=await createProfilePicture({
-                alumni_id:alumni.id,   
-                picture_data:"pictures\\chris.jpg",  
+            const popa=await createProfile({
+                alumni_id:alumni.id, 
             });
             return alumni;  
         } catch (error) {

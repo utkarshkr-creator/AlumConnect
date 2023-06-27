@@ -1,23 +1,22 @@
 
-const {PictureRepository}=require('../repositories');
+const {ProfileRepository}=require('../repositories');
 const AppError = require('../utils/errors/app-error');
 const {StatusCodes}=require('http-status-codes')
 
-const pictureRepo=new PictureRepository();
-async  function createProfilePicture(data){
+const profileRepo=new ProfileRepository();
+async  function createProfile(data){
 
     try {
-        
-        const picture=await pictureRepo.create(data);
+        const picture=await profileRepo.create(data);
         return picture;
     } catch (error) {
         throw error;
     }
 }
 
-async function updateProfilePicture(data){
+async function updateProfile(data){
     try {
-        const res=await pictureRepo.update(data);
+        const res=await profileRepo.update(data);
         return res;
     } catch (error) {
          
@@ -25,13 +24,13 @@ async function updateProfilePicture(data){
     }
 }
 
-async function getPicture(id) {
+async function getProfile(id) {
     try {
-        const picture = await pictureRepo.getByAlumniId(id);
-        return picture;
+        const profile = await profileRepo.getByAlumniId(id);
+        return profile;
     } catch(error) {
         if(error.statusCode == StatusCodes.NOT_FOUND) {
-            throw new AppError('The flight you requested is not present', error.statusCode);
+            throw new AppError('The Profile you requested is not present', error.statusCode);
         }
         throw error;
         // throw new AppError('Cannot fetch data of the flight', StatusCodes.INTERNAL_SERVER_ERROR);
@@ -39,7 +38,7 @@ async function getPicture(id) {
 }
 
 module.exports={
-    createProfilePicture,
-    updateProfilePicture,
-    getPicture,
+    createProfile,
+    updateProfile,
+    getProfile,
 }

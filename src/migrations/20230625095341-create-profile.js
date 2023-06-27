@@ -1,9 +1,9 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
-const {Alumni}=require('../models/alumni');
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('pictures', {
+    await queryInterface.createTable('profiles', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,6 +13,7 @@ module.exports = {
       alumni_id: {
         type: Sequelize.INTEGER,
         allowNull:false,
+        unique:true,  
         reference:{
           module:'Alumnis',  
           key:'id',
@@ -22,8 +23,23 @@ module.exports = {
       },
       picture_data: {
         type: Sequelize.STRING,  
-        allowNull:false
+        allowNull:true,   
+        defaultValue:'pictures\\chris.jpg', 
+      },  
+      designation:{
+        type:Sequelize.STRING,  
+        allowNull:true,
       },
+      location:{
+        type:Sequelize.STRING,
+        allowNull:true,  
+      },
+      linkdin_id:Sequelize.STRING,  
+      twitter_id:Sequelize.STRING,  
+      instragram_id:Sequelize.STRING,
+      facebook_id:Sequelize.STRING,
+      github_id:Sequelize.STRING, 
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -35,6 +51,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('pictures');
+    await queryInterface.dropTable('profiles');
   }
 };

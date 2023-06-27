@@ -5,7 +5,6 @@ const AppError = require('../utils/errors/app-error');
 const {AlumniService}=require('../services')
 
 function validateCreateRequest(req, res, next) {
-    console.log(req);
     if(!req.body.name) {
         ErrorResponse.message = 'Something went wrong while creating Account';
         ErrorResponse.error = new AppError(['name not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
