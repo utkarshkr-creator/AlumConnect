@@ -8,9 +8,12 @@ const {createProfile}=require('./profile-service')
 async function createAlumni(data){
         try {
             const alumni=await alumniRepository.create(data);
-            const popa=await createProfile({
-                alumni_id:alumni.id, 
-            });
+            // const popa=await createProfile({
+            //     alumni_id:alumni.id, 
+            // });
+            const popa=await alumni.createProfile();
+            console.log(popa);
+            
             return alumni;  
         } catch (error) {
             // console.log(error);

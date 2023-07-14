@@ -13,12 +13,11 @@ module.exports = {
       alumni_id: {
         type: Sequelize.INTEGER,
         allowNull:false,
-        unique:true,  
-        reference:{
-          module:'Alumnis',  
+        references:{
+          model:'Alumnis',  
           key:'id',
         },
-        onUpdate: 'CASCADE',
+        // onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
       picture_data: {

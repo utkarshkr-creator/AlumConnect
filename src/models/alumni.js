@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Alumni.hasOne(models.profile, { foreignKey: "id" });
+      this.hasMany(models.profile, { 
+        foreignKey: "alumni_id",
+        onDelete:'cascade', 
+      });
     }
   }
   Alumni.init({

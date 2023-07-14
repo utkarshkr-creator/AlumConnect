@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       
-      profile.belongsTo(models.Alumni, { foreignKey: "id" });
+      this.belongsTo(models.Alumni, { 
+          foreignKey: "alumni_id",
+          onDelete:'cascade', 
+        });
     }
   }
   profile.init(
@@ -19,11 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       alumni_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique:true,
-        references: {
-          model: 'Alumni',
-          key: 'id',
-        },
       },
       picture_data: {
         type: DataTypes.STRING,
