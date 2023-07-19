@@ -85,7 +85,7 @@ async function checkAuth(req, res, next) {
     try {
         const response = await AlumniService.isAuthenticated(req.headers['xaccesstoken']);
         if(response) {
-            req.user = response; // setting the user id in the req object
+            req.params.user = response; // setting the user id in the req object
             next();
         }
     } catch(error) {

@@ -90,8 +90,7 @@ async function getAll(req,res){
 }
 async function profile(req,res){
     try {
-        // console.log(req.user);
-        const response=await AlumniService.get(req.user)
+        const response=await AlumniService.get(req.params.user)
         SuccessResponse.data=response;
         return res
                 .status(StatusCodes.ACCEPTED)
