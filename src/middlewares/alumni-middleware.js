@@ -1,8 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
-
-const { ErrorResponse } = require('../utils/common');
 const AppError = require('../utils/errors/app-error');
 const {AlumniService}=require('../services')
+const {AuthChecker}=require('../controllers')
+const { SuccessResponse, ErrorResponse } = require("../utils/common");
 
 function validateCreateRequest(req, res, next) {
     if(!req.body.name) {
@@ -96,11 +96,27 @@ async function checkAuth(req, res, next) {
     
 }
 
+async function checkAuthOnly(req, res, next) {
+    try {
+        const response = await AuthChecker.AuthChecker(req.headers['xaccesstoken']);
+        SuccessResponse.data=response;
+        return res
+                .status(StatusCodes.ACCEPTED)
+                .json(SuccessResponse);
+    } catch(error) {
+        return res
+                .status(error.statusCode)
+                .json(error);
+    }
+    
+}
+
 
 module.exports = {
     validateCreateRequest,
     validateGetByName,
     validateGetByBranch,
     validateGetByBatch,
-    checkAuth
+    checkAuth,
+    checkAuthOnly
 }

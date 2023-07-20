@@ -39,7 +39,7 @@ async function getProfile(req, res) {
         designation: profile.designation,
         contentType: mimeType,
       };
-      console.log(req.query)
+      // console.log(req.query)
       if (req.query.auth==='true') {
         profileData.linkdin_id = profile.linkdin_id;
         profileData.twitter_id = profile.twitter_id;
