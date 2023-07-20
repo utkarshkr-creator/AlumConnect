@@ -20,7 +20,8 @@ async function createProfile(req, res) {
 
 async function getProfile(req, res) {
   try {
-    const profile = await ProfileService.getProfile(req.params.id);
+    console.log(req.query);
+    const profile = await ProfileService.getProfile(req.query.id);
     // console.log(picture.picture_data);
     const fileExtension = path.extname(profile.picture_data);
     // console.log(fileExtension);
@@ -33,16 +34,20 @@ async function getProfile(req, res) {
 
       const profileData = {
         id: profile.id,
-        location: profile.location,
         data: data.toString("base64"),
+        location: profile.location,
         designation: profile.designation,
-        linkdin_id: profile.linkdin_id,
-        twitter_id: profile.twitter_id,
-        instragram_id: profile.instragram_id,
-        facebook_id: profile.facebook_id,
-        github_id: profile.github_id,
         contentType: mimeType,
       };
+      console.log(req.query)
+      if (req.query.auth==='true') {
+        profileData.linkdin_id = profile.linkdin_id;
+        profileData.twitter_id = profile.twitter_id;
+        profileData.instragram_id = profile.instragram_id;
+        profileData.facebook_id = profile.facebook_id;
+        profileData.github_id = profile.github_id;
+      }
+      
 
       res.send(profileData);
     });
