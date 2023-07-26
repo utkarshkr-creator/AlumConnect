@@ -13,13 +13,6 @@ const BRANCH_TYPE = {
   ECE: "Electronics and Communication Engineering",
 };
 
-const CONNECTION_STATUS={
-    PENDING:"pending",
-    ACCEPT:'accepted',
-    REJECT:'rejected',
-};
-
 module.exports = {
   BRANCH_TYPE,
-  CONNECTION_STATUS,
 };
