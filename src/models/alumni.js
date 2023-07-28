@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "alumni_id",
         onDelete:'cascade', 
       });
-      this.belongsToMany(models.Connections,{through:'ConnectionMap',foreignKey:'alumni_id_1', as:'pogo'});
-      this.belongsToMany(models.Connections,{through:'ConnectionMap',foreignKey:'alumni_id_2',as:'pogok'});
+      this.belongsToMany(models.Alumni,{through:'ConnectionMap',foreignKey:'sender_id', as:'user1'});
+      this.belongsToMany(models.Alumni,{through:'ConnectionMap',foreignKey:'receiver_id',as:'user2'});
     }
   }
   Alumni.init({

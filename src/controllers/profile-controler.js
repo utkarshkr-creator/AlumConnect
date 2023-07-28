@@ -20,8 +20,9 @@ async function createProfile(req, res) {
 
 async function getProfile(req, res) {
   try {
-    console.log(req.query);
-    const profile = await ProfileService.getProfile(req.query.id);
+    // console.log(req.query);
+    const profile = await ProfileService.getProfileAlumniId(req.query.id);
+    // console.log(profile);
     // console.log(picture.picture_data);
     const fileExtension = path.extname(profile.picture_data);
     // console.log(fileExtension);
@@ -60,9 +61,11 @@ async function getProfile(req, res) {
 async function updateProfile(req, res) {
   try { 
     // console.log(req);
+    // console.log("Update ")
     const existingData=await ProfileService.getProfile(req.params.id);
+    // console.log("get profile done");
     await ProfileService.updateProfile({
-      id:req.body.id,  
+      id:req.params.id,  
       picture_data:req.file?`pictures\\${req.file.filename}`:existingData.picture_data,
       designation:req.body.designation,
       location:req.body.location,
@@ -72,7 +75,7 @@ async function updateProfile(req, res) {
       facebook_id:req.body.facebook_id,
       github_id:req.body.github_id, 
     });
-    SuccessResponse.data =`udated ${req.params.id}`;
+    SuccessResponse.data =`updated ${req.params.id}`;
     return res.status(StatusCodes.CREATED).json(SuccessResponse);
   
   } catch (error) {

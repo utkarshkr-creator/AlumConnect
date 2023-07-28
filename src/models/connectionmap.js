@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const {Enums}=require('../utils/common')
+const {ACCEPT,PENDING,REJECT}=Enums.CONNECTION_STATUS
 module.exports = (sequelize, DataTypes) => {
   class ConnectionMap extends Model {
     /**
@@ -15,18 +17,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ConnectionMap.init({
-    alumni_id_1: {
+    sender_id: {
       type:DataTypes.INTEGER,
       allowNull:false
       
     },
-    alumni_id_2:{
+    receiver_id:{
       type: DataTypes.INTEGER,
       allowNull:false
     },
-    connection_id: {
-      type:DataTypes.INTEGER,
-      allowNull:false
+    connection_status: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      values:[ACCEPT,PENDING,REJECT],
+      defaultValue:[PENDING],
     }
   }, {
     sequelize,

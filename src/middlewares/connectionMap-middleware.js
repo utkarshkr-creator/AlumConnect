@@ -4,16 +4,16 @@ const { SuccessResponse, ErrorResponse } = require("../utils/common");
 
 
 function validateCreateRequest(req, res, next) {
-    if(!req.body.alumni_id_1) {
+    if(!req.body.sender) {
         ErrorResponse.message = 'Something went wrong while creating Account';
-        ErrorResponse.error = new AppError(['alumni_id_1 not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
+        ErrorResponse.error = new AppError(['sender not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
         return res
                 .status(StatusCodes.BAD_REQUEST)
                 .json(ErrorResponse);
     }
-    if(!req.body.alumni_id_2) {
+    if(!req.body.receiver) {
         ErrorResponse.message = 'Something went wrong while creating Account';
-        ErrorResponse.error = new AppError(['alumni_id_2 not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
+        ErrorResponse.error = new AppError(['receiver not found in the oncoming request in the correct form'], StatusCodes.BAD_REQUEST);
         return res
                 .status(StatusCodes.BAD_REQUEST)
                 .json(ErrorResponse);

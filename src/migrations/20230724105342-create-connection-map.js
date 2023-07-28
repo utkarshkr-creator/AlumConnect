@@ -1,4 +1,6 @@
 'use strict';
+const {Enums}=require('../utils/common')
+const {ACCEPT,PENDING,REJECT}=Enums.CONNECTION_STATUS
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -9,7 +11,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      alumni_id_1: {
+      sender_id: {
         type: Sequelize.INTEGER,
         allowNull:false,
         references:{
@@ -19,25 +21,21 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      alumni_id_2: {
+      receiver_id: {
         type: Sequelize.INTEGER,
         allowNull:false,
         references:{
           model:'Alumnis',
           key:'id'
         },
-        onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      connection_id: {
-        type: Sequelize.INTEGER,
+      connection_status: {
+        type: Sequelize.STRING,
         allowNull:false,
-        references:{
-          model:'Connections',
-          key:'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        values:[ACCEPT,PENDING,REJECT],
+        defaultValue:[PENDING],
+        
       },
       createdAt: {
         allowNull: false,
