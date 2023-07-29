@@ -12,8 +12,13 @@ async function createAlumni(data){
             // });
             await alumni.createProfile();
             // console.log(popa);
+            const res={
+                name:alumni.name,
+                id:alumni.id,
+                
+            }
             
-            return alumni;  
+            return res;  
         } catch (error) {
             // console.log(error);
             if(error.name == 'SequelizeValidationError' || error.name=='SequelizeUniqueConstraintError') {
@@ -54,8 +59,8 @@ async function signin(data) {
 }
 async function getAll(){
     try {
-        const alumni=await alumniRepository.getAll();
-        return alumni;
+        const alumnis=await alumniRepository.getAll();
+        return alumnis;
     } catch (error) {
         throw new AppError("Somthing Went wrong", StatusCodes.INTERNAL_SERVER_ERROR);
     
@@ -65,7 +70,31 @@ async function get(id){
     try {
         // console.log(id);
         const alumni=await alumniRepository.get(id);
-        return alumni;
+        const res={
+            name:alumni.name,
+            id:alumni.id,
+            email:alumni.email,
+            phoneNumber:alumni.phoneNumber,
+            graduationYear:alumni.graduationYear,
+            branch:alumni.branch
+        }
+        return res;
+    } catch (error) {
+        throw new AppError("Somthing Went wrong", StatusCodes.INTERNAL_SERVER_ERROR);
+    
+    }
+}
+async function getRes(id){
+    try {
+        // console.log(id);
+        const alumni=await alumniRepository.get(id);
+        const res={
+            name:alumni.name,
+            id:alumni.id,
+            graduationYear:alumni.graduationYear,
+            branch:alumni.branch
+        }
+        return res;
     } catch (error) {
         throw new AppError("Somthing Went wrong", StatusCodes.INTERNAL_SERVER_ERROR);
     
@@ -139,6 +168,7 @@ module.exports={
     getUserByBranch,
     isAuthenticated,
     getUserByBatch,
-    get
+    getRes,
+    get,
 
 }

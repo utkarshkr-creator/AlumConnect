@@ -34,8 +34,34 @@ async function getBySenderReceiverId(id){
 
 }
 
+async function updateStatus(id,data){
+   try {
+         
+      const response=await connectRepo.update(id,data);
+      return response;
+      
+   } catch (error) {
+      console.log(error);
+      throw new AppError('Something went wrong while updating data', StatusCodes.INTERNAL_SERVER_ERROR);
+   }
+}
+
+async function getByStatus(status,id){
+   try {   
+      console.log(status);
+      const response=await connectRepo.getByStatus(status,id);
+      return response;
+      
+   } catch (error) {
+      console.log(error);
+      throw new AppError('Something went wrong while Geting data', StatusCodes.INTERNAL_SERVER_ERROR);
+   }
+}
+
 
 module.exports={
     create,
     getBySenderReceiverId,
+    updateStatus,
+    getByStatus,
 }

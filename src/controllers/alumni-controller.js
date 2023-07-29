@@ -88,9 +88,23 @@ async function getAll(req,res){
                 .json(ErrorResponse);
     }
 }
-async function profile(req,res){
+async function profileAuthenticated(req,res){
     try {
         const response=await AlumniService.get(req.params.user)
+        SuccessResponse.data=response;
+        return res
+                .status(StatusCodes.ACCEPTED)
+                .json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}
+async function profile(req,res){
+    try {
+        const response=await AlumniService.getRes(req.params.user)
         SuccessResponse.data=response;
         return res
                 .status(StatusCodes.ACCEPTED)
@@ -153,7 +167,9 @@ module.exports={
     getAll,
     getUserByName,
     getUserByBranch,
-    profile,
+    profileAuthenticated,
     getUserByBatch,
+    profile
+    
 
 }

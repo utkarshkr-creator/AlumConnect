@@ -11,7 +11,7 @@ router.post('/signin',AlumniController.signin);
 
 router.get('/getall',AlumniController.getAll);
 
-router.get('/profile',AlumniMiddleware.checkAuth,AlumniController.profile)
+router.get('/profile',AlumniMiddleware.checkAuth,AlumniController.profileAuthenticated)
 router.get('/userProfile/:user',AlumniController.profile)
 
 router.get('/name',

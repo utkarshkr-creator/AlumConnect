@@ -6,6 +6,7 @@ const {ConnectionMapController}=require('../../controllers');
 
 router.post('/',ConnectionMapMiddleware.validateCreateRequest,ConnectionMapController.createConnection);
 router.get('/:senderId/:receiverId',ConnectionMapController.getByIds);
-
+router.patch('/:id', ConnectionMapMiddleware.updateStatus,ConnectionMapController.updateStatus);
+router.put('/',ConnectionMapMiddleware.getByStatus,ConnectionMapController.getByStatus);
 
 module.exports=router;
