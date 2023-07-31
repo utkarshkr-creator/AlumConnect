@@ -35,6 +35,9 @@ Lets take a look inside the `src` folder
     ex: 
     ```
         PORT=3000
+        SALT_ROUNDS=8
+        JWT_SECRET="Hanuman_a@123"
+        JWT_EXPIRY=220h
     ```
  - go inside the `src` folder and execute the following command:
     ```
