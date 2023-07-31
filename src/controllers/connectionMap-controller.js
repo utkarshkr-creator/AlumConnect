@@ -34,7 +34,8 @@ async function getByIds(req, res) {
 
 async function updateStatus(req, res) {
   try {
-    const response = await ConnectionMapService.updateStatus(req.params, {
+    
+    const response = await ConnectionMapService.updateStatus(req.query.sender_id,req.query.receiver_id, {
       connection_status: req.body.status,
     });
     SuccessResponse.data = response;
