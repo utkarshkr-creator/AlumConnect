@@ -1,4 +1,4 @@
-- `Frontend files' -> ` https://github.com/VaibhaviCoder/AlumConnect `.
+- `Frontend files` -> ` https://github.com/VaibhaviCoder/AlumConnect `.
 
 This is a base node js project template, which anyone can use as it has been prepared, by keeping some of the most important code principles and project management recommendations. Feel free to change anything. 
 
@@ -31,6 +31,9 @@ Lets take a look inside the `src` folder
  - In the root directory create a `.env` file and add the following env variables
     ```
         PORT=<port number of your choice>
+        SALT_ROUNDS=<Round of hashing of your choice>
+        JWT_SECRET=<Secret code of your choice>
+        JWT_EXPIRY=<JWT Token Time of your Choice>
     ```
     ex: 
     ```
