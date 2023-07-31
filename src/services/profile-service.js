@@ -20,7 +20,7 @@ async function updateProfile(data){
         const res=await profileRepo.update(data.id,data);
         return res;
     } catch (error) {
-         
+        //  console.log(error)
         throw new AppError("Something went wrong while updating profile Picture",StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }

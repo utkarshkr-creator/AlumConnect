@@ -63,7 +63,7 @@ async function updateProfile(req, res) {
     // console.log(req);
     // console.log("Update ")
     const existingData=await ProfileService.getProfile(req.params.id);
-    // console.log("get profile done");
+    console.log("get profile done");
     await ProfileService.updateProfile({
       id:req.params.id,  
       picture_data:req.file?`pictures\\${req.file.filename}`:existingData.picture_data,
