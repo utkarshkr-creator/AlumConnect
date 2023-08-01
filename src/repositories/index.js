@@ -3,4 +3,5 @@ module.exports = {
     AlumniRepository:require('./alumni-repository'),
     ProfileRepository:require('./profile-repository'),
     ConnectionMapRepository:require('./connectionMap-repository'),
+    RoleRepository: require('./role-repository'),
 }

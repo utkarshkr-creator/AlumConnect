@@ -29,9 +29,19 @@ class ConnectionMapRepository extends CrudRepository {
         [Op.and]: [{ sender_id }, { receiver_id }],
       },
     });
-    console.log(response);
     return response;
   }
+  async destroyConnection(sender_id, receiver_id){
+    const response=await this.model.destroy({
+        where:{
+          [Op.and]: [{ sender_id }, { receiver_id }],
+        }
+    });
+    if(!response){
+        throw StatusCodes.NOT_FOUND;
+    }
+    return response;
+}
 }
 
 module.exports = ConnectionMapRepository;

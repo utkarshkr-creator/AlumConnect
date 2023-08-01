@@ -19,7 +19,13 @@ const CONNECTION_STATUS={
     REJECT:'rejected',
 };
 
+const USER_ROLES_ENUMS = {
+  ADMIN: 'admin',
+  CUSTOMER: 'customer',
+  
+}
 module.exports = {
   BRANCH_TYPE,
   CONNECTION_STATUS,
+  USER_ROLES_ENUMS,
 };

@@ -38,9 +38,17 @@ async function getBySenderReceiverId(id){
 
 async function updateStatus(sender_id,receiver_id,data){
    try {
-         
-      const response=await connectRepo.updateStatus(sender_id,receiver_id,data);
-      return response;
+      console.log(data.connection_status);
+      if(data.connection_status==='accepted')   
+      {
+         const response=await connectRepo.updateStatus(sender_id,receiver_id,data);
+         return response;
+      }
+      else{
+         const response=await connectRepo.destroyConnection(sender_id,receiver_id);
+         return response;
+      }
+      
       
    } catch (error) {
       console.log(error);

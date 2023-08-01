@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsToMany(models.Alumni,{through:'ConnectionMap',foreignKey:'sender_id', as:'user1'});
       this.belongsToMany(models.Alumni,{through:'ConnectionMap',foreignKey:'receiver_id',as:'user2'});
+      this.belongsToMany(models.Role, {through: 'User_Roles', foreignKey:'userId', as: 'role'});
     }
   }
   Alumni.init({

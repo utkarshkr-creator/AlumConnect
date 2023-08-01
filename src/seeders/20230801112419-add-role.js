@@ -1,7 +1,5 @@
 'use strict';
-const { Op } = require('sequelize');
-const {Enums}=require('../utils/common')
-const {IT, ME, CE, EE,LT,PHARMA,BMR}=Enums.BRANCH_TYPE
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -14,7 +12,18 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    
+    await queryInterface.bulkInsert('Roles', [
+      {
+       name: 'admin',
+       createdAt: new Date(),
+       updatedAt: new Date()
+      },
+      {
+        name: 'customer',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+    ], {});
   },
 
   async down (queryInterface, Sequelize) {
@@ -24,6 +33,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    
+    await queryInterface.bulkDelete('Roles', null, {});
   }
 };

@@ -1,8 +1,10 @@
 const {StatusCodes} = require('http-status-codes');
-const {AlumniRepository}=require('../repositories');
+const {AlumniRepository, RoleRepository}=require('../repositories');
 const AppError = require('../utils/errors/app-error');
 const alumniRepository=new AlumniRepository();
-const {Auth}=require('../utils/common');
+const roleRepo=new RoleRepository();
+const { Auth, Enums } = require('../utils/common');
+
 
 async function createAlumni(data){
         try {
@@ -11,7 +13,8 @@ async function createAlumni(data){
             //     alumni_id:alumni.id, 
             // });
             await alumni.createProfile();
-            // console.log(popa);
+            const role = await roleRepo.getRoleByName(Enums.USER_ROLES_ENUMS.CUSTOMER);
+            await alumni.addRole(role);
             const res={
                 name:alumni.name,
                 id:alumni.id,
@@ -20,7 +23,7 @@ async function createAlumni(data){
             
             return res;  
         } catch (error) {
-            // console.log(error);
+            console.log(error);
             if(error.name == 'SequelizeValidationError' || error.name=='SequelizeUniqueConstraintError') {
                 let explanation = [];
                 error.errors.forEach((err) => {
