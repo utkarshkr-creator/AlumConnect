@@ -5,12 +5,13 @@ const { ConnectionMapService } = require("../services");
 async function createConnection(req, res) {
   try {
     const { sender, receiver, status } = req.body;
-    const newConnectionMap = await ConnectionMapService.create({
+    const response = await ConnectionMapService.create({
       sender_id: sender,
       receiver_id: receiver,
       connection_status: status,
     });
-    SuccessResponse.data = newConnectionMap;
+    
+    SuccessResponse.data = response;
     return res.status(StatusCodes.CREATED).json(SuccessResponse);
   } catch (error) {
     ErrorResponse.error = error;
@@ -34,7 +35,6 @@ async function getByIds(req, res) {
 
 async function updateStatus(req, res) {
   try {
-    
     const response = await ConnectionMapService.updateStatus(req.query.sender_id,req.query.receiver_id, {
       connection_status: req.body.status,
     });

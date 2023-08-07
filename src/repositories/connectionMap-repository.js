@@ -15,10 +15,19 @@ class ConnectionMapRepository extends CrudRepository {
     return response;
   }
 
-  async getByStatus(status, id) {
+  async getAcceptedList(status, id) {
     const response = await ConnectionMap.findAll({
       where: {
         [Op.and]: [{ connection_status: status }, { sender_id: id }],
+      },
+    });
+    // console.log(response);
+    return response;
+  }
+  async getPendingReq(status, id) {
+    const response = await ConnectionMap.findAll({
+      where: {
+        [Op.and]: [{ connection_status: status }, { receiver_id: id }],
       },
     });
     return response;

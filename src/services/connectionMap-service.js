@@ -1,7 +1,8 @@
 const {StatusCodes} = require('http-status-codes');
 const {ConnectionMapRepository}=require('../repositories');
 const AppError = require('../utils/errors/app-error');
-
+const {Enums}=require('../utils/common')
+const {ACCEPT,PENDING,REJECT}=Enums.CONNECTION_STATUS
 const connectRepo=new ConnectionMapRepository();   
 
 async function create(data){
@@ -12,10 +13,11 @@ async function create(data){
       //     throw new AppError('Already Connected', StatusCodes.BAD_REQUEST);
       //   }
         const newConnection=await connectRepo.create(data);
+       
         return newConnection;
         
      } catch (error) {
-       
+       console.log(error);
         if(error.name==='SequelizeUniqueConstraintError'){
          throw new AppError('Request is already sended for this id', StatusCodes.BAD_REQUEST);
         }
@@ -38,15 +40,21 @@ async function getBySenderReceiverId(id){
 
 async function updateStatus(sender_id,receiver_id,data){
    try {
-      console.log(data.connection_status);
+      // console.log(data.connection_status);
+      
       if(data.connection_status==='accepted')   
       {
-         const response=await connectRepo.updateStatus(sender_id,receiver_id,data);
-         return response;
+         await connectRepo.updateStatus(sender_id,receiver_id,data);
+         const newConnection=await connectRepo.create({
+            sender_id: receiver_id,
+            receiver_id: sender_id,
+            connection_status: data.connection_status,});
+         return true;
       }
       else{
-         const response=await connectRepo.destroyConnection(sender_id,receiver_id);
-         return response;
+         await connectRepo.destroyConnection(sender_id,receiver_id);
+         await connectRepo.destroyConnection(receiver_id,sender_id);
+         return true;
       }
       
       
@@ -58,10 +66,16 @@ async function updateStatus(sender_id,receiver_id,data){
 
 async function getByStatus(status,id){
    try {   
-      // console.log(status);
+      if(status==ACCEPT)
+      {
+         const response=await connectRepo.getAcceptedList(status,id);
+         return response;
+      }
+      else{
+         const response=await connectRepo.getPendingReq(status,id);
+         return response;
+      }
       
-      const response=await connectRepo.getByStatus(status,id);
-      return response;
       
    } catch (error) {
       console.log(error);
